@@ -2271,13 +2271,7 @@
                 var main = document.getElementById('mainContent');
                 main.classList.remove('main-hidden');
                 main.classList.add('main-visible');
-                // Scroll to contact/message section
-                setTimeout(function() {
-                    var contactEl = document.getElementById('msgSection');
-                    if (contactEl) {
-                        contactEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    }
-                }, 400);
+                // (Auto-scroll removed, user stays at hero section)
                 // Remove preloader from DOM after transition
                 setTimeout(function() {
                     preloader.remove();
