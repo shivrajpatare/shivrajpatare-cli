@@ -1257,6 +1257,279 @@
             #preloader { display: none !important; }
             .main-hidden { opacity: 1; }
         }
+
+        /* ═══════════════════════════════════════════
+           PARTICLE CURSOR TRAIL
+        ═══════════════════════════════════════════ */
+        #particle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 998;
+            pointer-events: none;
+        }
+
+        /* ═══════════════════════════════════════════
+           3D TILT ON PROJECT CARDS
+        ═══════════════════════════════════════════ */
+        .project-list li,
+        .skill-card {
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+
+        .project-list li.tilting,
+        .skill-card.tilting {
+            transition: transform 0.1s ease-out, box-shadow 0.3s ease;
+        }
+
+        .tilt-shine {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: inherit;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1;
+        }
+
+        /* ═══════════════════════════════════════════
+           ANIMATED STATS COUNTER
+        ═══════════════════════════════════════════ */
+        .stats-section {
+            margin-top: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+            margin-top: 20px;
+        }
+
+        .stat-card {
+            background: rgba(187, 154, 247, 0.02);
+            border: 1px dashed var(--term-green-dim);
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            border-style: solid;
+            border-color: var(--term-green);
+            background: rgba(187, 154, 247, 0.05);
+            box-shadow: 0 0 20px rgba(187, 154, 247, 0.15);
+            transform: translateY(-3px);
+        }
+
+        .stat-icon {
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .stat-number {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--term-purple);
+            display: block;
+            line-height: 1.2;
+            text-shadow: 0 0 15px rgba(187, 154, 247, 0.4);
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-top: 6px;
+        }
+
+        .stat-bar {
+            width: 100%;
+            height: 2px;
+            background: var(--term-dark);
+            margin-top: 12px;
+            border-radius: 1px;
+            overflow: hidden;
+        }
+
+        .stat-bar-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--term-purple), var(--term-cyan));
+            transition: width 1.5s ease-out;
+            border-radius: 1px;
+        }
+
+        .stat-card.counted .stat-bar-fill {
+            width: 100%;
+        }
+
+        /* ═══════════════════════════════════════════
+           SKILL PROFICIENCY BARS
+        ═══════════════════════════════════════════ */
+        .proficiency-section {
+            margin-top: 10px;
+            margin-bottom: 30px;
+        }
+
+        .proficiency-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 500px) {
+            .proficiency-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .prof-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 12px;
+            background: rgba(187, 154, 247, 0.02);
+            border: 1px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .prof-item:hover {
+            border-color: var(--term-green-dim);
+            background: rgba(187, 154, 247, 0.04);
+        }
+
+        .prof-label {
+            min-width: 130px;
+            font-size: 0.85rem;
+            color: var(--term-cyan);
+        }
+
+        .prof-bar-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-family: 'Fira Code', monospace;
+        }
+
+        .prof-bar {
+            flex: 1;
+            height: 10px;
+            background: var(--term-dark);
+            border: 1px solid var(--term-border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .prof-bar-fill {
+            height: 100%;
+            width: 0%;
+            transition: width 1.2s ease-out;
+            position: relative;
+        }
+
+        .prof-bar-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 2px;
+            height: 100%;
+            background: white;
+            opacity: 0;
+            animation: none;
+        }
+
+        .prof-item.animated .prof-bar-fill::after {
+            opacity: 0.8;
+            animation: bar-pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes bar-pulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        .prof-pct {
+            min-width: 36px;
+            text-align: right;
+            color: var(--term-green);
+            font-weight: 600;
+        }
+
+        /* ═══════════════════════════════════════════
+           KONAMI EASTER EGG OVERLAY
+        ═══════════════════════════════════════════ */
+        #konami-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 99999;
+            background: #000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        #konami-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        #konami-overlay .konami-text {
+            font-family: 'Fira Code', monospace;
+            font-size: 1.5rem;
+            text-align: center;
+            z-index: 2;
+            position: relative;
+        }
+
+        #konami-overlay .konami-text .line1 {
+            color: #ff0080;
+            font-size: 2rem;
+            font-weight: 700;
+            text-shadow: 0 0 20px rgba(255, 0, 128, 0.8), 0 0 40px rgba(255, 0, 128, 0.4);
+            animation: konami-glow 1.5s ease-in-out infinite alternate;
+        }
+
+        #konami-overlay .konami-text .line2 {
+            color: #00ffaa;
+            margin-top: 12px;
+            font-size: 1rem;
+        }
+
+        #konami-overlay .konami-text .line3 {
+            color: #555;
+            margin-top: 20px;
+            font-size: 0.8rem;
+        }
+
+        @keyframes konami-glow {
+            0% { text-shadow: 0 0 20px rgba(255, 0, 128, 0.8), 0 0 40px rgba(255, 0, 128, 0.4); }
+            100% { text-shadow: 0 0 30px rgba(0, 255, 170, 0.8), 0 0 60px rgba(0, 200, 255, 0.5); color: #00ffaa; }
+        }
+
     </style>
 </head>
 <body>
@@ -1303,6 +1576,19 @@
 
 <!-- Matrix Rain Background -->
 <canvas id="matrix-rain" aria-hidden="true"></canvas>
+
+<!-- Particle Cursor Trail -->
+<canvas id="particle-canvas" aria-hidden="true"></canvas>
+
+<!-- Konami Easter Egg Overlay -->
+<div id="konami-overlay">
+    <canvas id="konami-rain" style="position:absolute;top:0;left:0;width:100%;height:100%;"></canvas>
+    <div class="konami-text">
+        <div class="line1">⚡ HACKER MODE ACTIVATED ⚡</div>
+        <div class="line2">You found the secret! ↑↑↓↓←→←→ B A</div>
+        <div class="line3">// Shivraj appreciates curious minds. Press ESC to return.</div>
+    </div>
+</div>
 
 <main aria-label="Shivraj Patare Portfolio" class="main-hidden" id="mainContent">
 <div class="container">
@@ -1449,6 +1735,85 @@
         </div>
         </section>
 
+        <!-- ═══ SKILL PROFICIENCY ═══ -->
+        <section aria-label="Skill Proficiency" class="proficiency-section">
+        <h2>cat /proc/proficiency</h2>
+        <div class="proficiency-grid" id="proficiencyGrid">
+            <div class="prof-item" data-pct="95">
+                <span class="prof-label">Python</span>
+                <div class="prof-bar-container">
+                    <span>[</span>
+                    <div class="prof-bar"><div class="prof-bar-fill" style="background: linear-gradient(90deg, #bb9af7, #7dcfff);"></div></div>
+                    <span>]</span>
+                    <span class="prof-pct">0%</span>
+                </div>
+            </div>
+            <div class="prof-item" data-pct="90">
+                <span class="prof-label">LLM / RAG</span>
+                <div class="prof-bar-container">
+                    <span>[</span>
+                    <div class="prof-bar"><div class="prof-bar-fill" style="background: linear-gradient(90deg, #ff0080, #ff9e64);"></div></div>
+                    <span>]</span>
+                    <span class="prof-pct">0%</span>
+                </div>
+            </div>
+            <div class="prof-item" data-pct="88">
+                <span class="prof-label">Prompt Eng.</span>
+                <div class="prof-bar-container">
+                    <span>[</span>
+                    <div class="prof-bar"><div class="prof-bar-fill" style="background: linear-gradient(90deg, #e0af68, #f7768e);"></div></div>
+                    <span>]</span>
+                    <span class="prof-pct">0%</span>
+                </div>
+            </div>
+            <div class="prof-item" data-pct="85">
+                <span class="prof-label">TensorFlow</span>
+                <div class="prof-bar-container">
+                    <span>[</span>
+                    <div class="prof-bar"><div class="prof-bar-fill" style="background: linear-gradient(90deg, #7aa2f7, #bb9af7);"></div></div>
+                    <span>]</span>
+                    <span class="prof-pct">0%</span>
+                </div>
+            </div>
+            <div class="prof-item" data-pct="82">
+                <span class="prof-label">PyTorch</span>
+                <div class="prof-bar-container">
+                    <span>[</span>
+                    <div class="prof-bar"><div class="prof-bar-fill" style="background: linear-gradient(90deg, #f7768e, #bb9af7);"></div></div>
+                    <span>]</span>
+                    <span class="prof-pct">0%</span>
+                </div>
+            </div>
+            <div class="prof-item" data-pct="80">
+                <span class="prof-label">Docker/DevOps</span>
+                <div class="prof-bar-container">
+                    <span>[</span>
+                    <div class="prof-bar"><div class="prof-bar-fill" style="background: linear-gradient(90deg, #00ffaa, #7dcfff);"></div></div>
+                    <span>]</span>
+                    <span class="prof-pct">0%</span>
+                </div>
+            </div>
+            <div class="prof-item" data-pct="85">
+                <span class="prof-label">SQL/Database</span>
+                <div class="prof-bar-container">
+                    <span>[</span>
+                    <div class="prof-bar"><div class="prof-bar-fill" style="background: linear-gradient(90deg, #e0af68, #7dcfff);"></div></div>
+                    <span>]</span>
+                    <span class="prof-pct">0%</span>
+                </div>
+            </div>
+            <div class="prof-item" data-pct="78">
+                <span class="prof-label">Cloud (AWS/GCP)</span>
+                <div class="prof-bar-container">
+                    <span>[</span>
+                    <div class="prof-bar"><div class="prof-bar-fill" style="background: linear-gradient(90deg, #7aa2f7, #00ffaa);"></div></div>
+                    <span>]</span>
+                    <span class="prof-pct">0%</span>
+                </div>
+            </div>
+        </div>
+        </section>
+
         <!-- ═══ PROJECTS ═══ -->
         <section aria-label="Projects">
         <h2>ls -la ./deployed_projects/</h2>
@@ -1481,6 +1846,37 @@
                 </div>
             </li>
         </ul>
+        </section>
+
+        <!-- ═══ STATS COUNTER ═══ -->
+        <section aria-label="Stats" class="stats-section">
+        <h2>cat /proc/stats</h2>
+        <div class="stats-grid" id="statsGrid">
+            <div class="stat-card" data-target="2" data-suffix="+">
+                <span class="stat-icon">⚡</span>
+                <span class="stat-number">0</span>
+                <span class="stat-label">Years Experience</span>
+                <div class="stat-bar"><div class="stat-bar-fill"></div></div>
+            </div>
+            <div class="stat-card" data-target="5" data-suffix="+">
+                <span class="stat-icon">🚀</span>
+                <span class="stat-number">0</span>
+                <span class="stat-label">Projects Deployed</span>
+                <div class="stat-bar"><div class="stat-bar-fill"></div></div>
+            </div>
+            <div class="stat-card" data-target="3" data-suffix="+">
+                <span class="stat-icon">🤖</span>
+                <span class="stat-number">0</span>
+                <span class="stat-label">AI Models Built</span>
+                <div class="stat-bar"><div class="stat-bar-fill"></div></div>
+            </div>
+            <div class="stat-card" data-target="1" data-suffix="">
+                <span class="stat-icon">📄</span>
+                <span class="stat-number">0</span>
+                <span class="stat-label">Research Published</span>
+                <div class="stat-bar"><div class="stat-bar-fill"></div></div>
+            </div>
+        </div>
         </section>
 
         <!-- ═══ EDUCATION ═══ -->
@@ -2508,6 +2904,277 @@
             }, 3000);
         }
     });
+})();
+</script>
+
+<!-- ═══ PARTICLE CURSOR TRAIL ═══ -->
+<script>
+(function() {
+    var canvas = document.getElementById('particle-canvas');
+    if (!canvas) return;
+    var ctx = canvas.getContext('2d');
+    var particles = [];
+    var mouseX = 0, mouseY = 0;
+    var colors = ['#bb9af7', '#7dcfff', '#ff0080', '#00ffaa', '#e0af68', '#f7768e'];
+
+    function resize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    document.addEventListener('mousemove', function(e) {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        for (var i = 0; i < 2; i++) {
+            particles.push({
+                x: mouseX + (Math.random() - 0.5) * 10,
+                y: mouseY + (Math.random() - 0.5) * 10,
+                vx: (Math.random() - 0.5) * 2,
+                vy: (Math.random() - 0.5) * 2 - 1,
+                life: 1,
+                decay: 0.015 + Math.random() * 0.02,
+                size: 1.5 + Math.random() * 2.5,
+                color: colors[Math.floor(Math.random() * colors.length)]
+            });
+        }
+    });
+
+    function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        for (var i = particles.length - 1; i >= 0; i--) {
+            var p = particles[i];
+            p.x += p.vx;
+            p.y += p.vy;
+            p.life -= p.decay;
+            if (p.life <= 0) {
+                particles.splice(i, 1);
+                continue;
+            }
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.size * p.life, 0, Math.PI * 2);
+            ctx.fillStyle = p.color;
+            ctx.globalAlpha = p.life * 0.7;
+            ctx.shadowBlur = 8;
+            ctx.shadowColor = p.color;
+            ctx.fill();
+            ctx.globalAlpha = 1;
+            ctx.shadowBlur = 0;
+        }
+        if (particles.length > 200) particles.splice(0, particles.length - 200);
+        requestAnimationFrame(animate);
+    }
+    animate();
+})();
+</script>
+
+<!-- ═══ 3D TILT ON CARDS ═══ -->
+<script>
+(function() {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if ('ontouchstart' in window) return; // skip on mobile
+
+    var cards = document.querySelectorAll('.project-list li, .skill-card');
+
+    cards.forEach(function(card) {
+        // Add shine overlay
+        var shine = document.createElement('div');
+        shine.className = 'tilt-shine';
+        card.style.position = 'relative';
+        card.appendChild(shine);
+
+        card.addEventListener('mousemove', function(e) {
+            var rect = card.getBoundingClientRect();
+            var x = e.clientX - rect.left;
+            var y = e.clientY - rect.top;
+            var centerX = rect.width / 2;
+            var centerY = rect.height / 2;
+            var rotateX = ((y - centerY) / centerY) * -8;
+            var rotateY = ((x - centerX) / centerX) * 8;
+
+            card.style.transform = 'perspective(1000px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg) scale(1.02)';
+            card.style.boxShadow = '0 15px 35px rgba(187, 154, 247, 0.15), 0 5px 15px rgba(0, 0, 0, 0.3)';
+
+            // Update shine position
+            var pctX = (x / rect.width) * 100;
+            var pctY = (y / rect.height) * 100;
+            shine.style.background = 'radial-gradient(circle at ' + pctX + '% ' + pctY + '%, rgba(255,255,255,0.08) 0%, transparent 60%)';
+            shine.style.opacity = '1';
+        });
+
+        card.addEventListener('mouseleave', function() {
+            card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
+            card.style.boxShadow = '';
+            card.style.transition = 'transform 0.4s ease, box-shadow 0.4s ease';
+            shine.style.opacity = '0';
+            setTimeout(function() { card.style.transition = ''; }, 400);
+        });
+    });
+})();
+</script>
+
+<!-- ═══ ANIMATED STATS COUNTER ═══ -->
+<script>
+(function() {
+    var statsGrid = document.getElementById('statsGrid');
+    if (!statsGrid) return;
+    var statCards = statsGrid.querySelectorAll('.stat-card');
+    var animated = false;
+
+    function animateCount(card) {
+        var numberEl = card.querySelector('.stat-number');
+        var target = parseInt(card.getAttribute('data-target'), 10);
+        var suffix = card.getAttribute('data-suffix') || '';
+        var duration = 1500;
+        var start = 0;
+        var startTime = null;
+
+        function step(timestamp) {
+            if (!startTime) startTime = timestamp;
+            var progress = Math.min((timestamp - startTime) / duration, 1);
+            // Ease out cubic
+            var eased = 1 - Math.pow(1 - progress, 3);
+            var current = Math.floor(eased * target);
+            numberEl.textContent = current + suffix;
+            if (progress < 1) {
+                requestAnimationFrame(step);
+            } else {
+                numberEl.textContent = target + suffix;
+                card.classList.add('counted');
+            }
+        }
+        requestAnimationFrame(step);
+    }
+
+    var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+            if (entry.isIntersecting && !animated) {
+                animated = true;
+                statCards.forEach(function(card, idx) {
+                    setTimeout(function() {
+                        animateCount(card);
+                    }, idx * 200);
+                });
+                observer.unobserve(statsGrid);
+            }
+        });
+    }, { threshold: 0.3 });
+
+    observer.observe(statsGrid);
+})();
+</script>
+
+<!-- ═══ SKILL PROFICIENCY BAR ANIMATIONS ═══ -->
+<script>
+(function() {
+    var profGrid = document.getElementById('proficiencyGrid');
+    if (!profGrid) return;
+    var items = profGrid.querySelectorAll('.prof-item');
+    var animated = false;
+
+    function animateBar(item, delay) {
+        setTimeout(function() {
+            var pct = parseInt(item.getAttribute('data-pct'), 10);
+            var fill = item.querySelector('.prof-bar-fill');
+            var pctEl = item.querySelector('.prof-pct');
+
+            fill.style.width = pct + '%';
+            item.classList.add('animated');
+
+            // Animate the percentage text
+            var duration = 1200;
+            var startTime = null;
+            function countUp(timestamp) {
+                if (!startTime) startTime = timestamp;
+                var progress = Math.min((timestamp - startTime) / duration, 1);
+                var eased = 1 - Math.pow(1 - progress, 3);
+                pctEl.textContent = Math.floor(eased * pct) + '%';
+                if (progress < 1) {
+                    requestAnimationFrame(countUp);
+                } else {
+                    pctEl.textContent = pct + '%';
+                }
+            }
+            requestAnimationFrame(countUp);
+        }, delay);
+    }
+
+    var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+            if (entry.isIntersecting && !animated) {
+                animated = true;
+                items.forEach(function(item, idx) {
+                    animateBar(item, idx * 120);
+                });
+                observer.unobserve(profGrid);
+            }
+        });
+    }, { threshold: 0.2 });
+
+    observer.observe(profGrid);
+})();
+</script>
+
+<!-- ═══ KONAMI CODE EASTER EGG ═══ -->
+<script>
+(function() {
+    var konamiSequence = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
+    var konamiIndex = 0;
+    var overlay = document.getElementById('konami-overlay');
+    var konamiCanvas = document.getElementById('konami-rain');
+    var konamiInterval = null;
+    if (!overlay || !konamiCanvas) return;
+
+    document.addEventListener('keydown', function(e) {
+        // Check if overlay is active — ESC to close
+        if (overlay.classList.contains('active')) {
+            if (e.key === 'Escape') {
+                overlay.classList.remove('active');
+                if (konamiInterval) { clearInterval(konamiInterval); konamiInterval = null; }
+            }
+            return;
+        }
+
+        var expected = konamiSequence[konamiIndex];
+        if (e.key === expected || e.key.toLowerCase() === expected) {
+            konamiIndex++;
+            if (konamiIndex === konamiSequence.length) {
+                konamiIndex = 0;
+                activateKonami();
+            }
+        } else {
+            konamiIndex = 0;
+        }
+    });
+
+    function activateKonami() {
+        overlay.classList.add('active');
+        
+        // Matrix rain on konami overlay
+        var kctx = konamiCanvas.getContext('2d');
+        konamiCanvas.width = window.innerWidth;
+        konamiCanvas.height = window.innerHeight;
+        var chars = 'アイウエオカキクケコ0123456789SHIVRAJ@#$%';
+        var fs = 16;
+        var cols = Math.floor(konamiCanvas.width / fs);
+        var drops = [];
+        for (var i = 0; i < cols; i++) drops[i] = Math.floor(Math.random() * -30);
+
+        konamiInterval = setInterval(function() {
+            kctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            kctx.fillRect(0, 0, konamiCanvas.width, konamiCanvas.height);
+            kctx.font = fs + 'px monospace';
+            for (var i = 0; i < drops.length; i++) {
+                var ch = chars[Math.floor(Math.random() * chars.length)];
+                var hue = (i * 5 + Date.now() * 0.05) % 360;
+                kctx.fillStyle = 'hsla(' + hue + ', 100%, 60%, ' + (0.4 + Math.random() * 0.6) + ')';
+                kctx.fillText(ch, i * fs, drops[i] * fs);
+                if (drops[i] * fs > konamiCanvas.height && Math.random() > 0.95) drops[i] = 0;
+                drops[i]++;
+            }
+        }, 35);
+    }
 })();
 </script>
 
